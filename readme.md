@@ -78,3 +78,50 @@ git push -u origin master  //提交到你的仓库
 ```
 
 这样一切都好了。
+
+## 使用MongoDB
+
+```
+show dbs(不用管)
+use bookstore（文件夹名）（指定数据库）
+show collections(这里没有返回值，因为我没有数据集)
+db.createCollection('books')（存放书的名字）
+db.createCollection('genres')（存放书的模式）
+db.genres(数据集名).insert({name:'Suspense'}) （书类型一的名字是“悬疑类”）
+
+```
+
+## node链接到MongoDB（使用mongoose）
+
+先创建schema（模式）对象，
+
+在通过schema来创建model
+
+model代表的是数据库中的集合，通过Model才能对数据库进行操作
+
+mongoose.model(modelName, schema) 
+
+modelName 就是要映射的集合名 mongoose会自动将集合名变成复数
+
+我们在上面的数据库操作中已经创建了genres集合和books集合
+
+所以这里modelname写genre也行（好像对大小写不是敏感
+
+[详情见这个博客（mongoose的使用介绍）]:https://blog.csdn.net/weixin_39200308/article/details/90232719
+
+
+
+## 其他
+
+- **module.exports** 在我们自己写模块的时候，需要在模块最后写好模块接口，声明这个模块**对外暴露什么内容**，**module.exports** 提供了**暴露接口**的方法。
+
+  node里自己的**exports**事实上是对它的一个引用。
+
+  ```
+  module.exports.getGenre(函数名) = function({...}) （函数内容）
+  ```
+
+- **callback函数** （在一个函数中调用另外一个函数就是callback）
+
+- app.js控制路由，就是访问到哪个URL下面执行什么操作。model里的genres.js控制书籍的类型。books.js还没写到
+
