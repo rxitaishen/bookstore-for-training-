@@ -109,7 +109,7 @@ modelName 就是要映射的集合名 mongoose会自动将集合名变成复数
 
 [详情见这个博客（mongoose的使用介绍）]:https://blog.csdn.net/weixin_39200308/article/details/90232719
 
-
+## 回调函数和res
 
 ## 其他
 
@@ -123,5 +123,26 @@ modelName 就是要映射的集合名 mongoose会自动将集合名变成复数
 
 - **callback函数** （在一个函数中调用另外一个函数就是callback）
 
-- app.js控制路由，就是访问到哪个URL下面执行什么操作。model里的genres.js控制书籍的类型。books.js还没写到
+- app.js控制路由，就是访问到哪个URL下面执行什么操作。model里的genres.js控制书籍的类型。books.js结构与genres相同
+
+- 数据传输是我们在敲代码时，经常遇到的一个场景,前后端交互。给数据一个统一的格式有利于我们编写和解析数据。
+
+  json，是一种数据格式，在与后端的数据交互中有较为广泛的应用。
+
+  res.json()和res.send()返回值相同
+
+- JS不会死等时间结束再跳出函数：
+
+  ```
+  console.log(a)
+  timer(3000, function (x) {
+      console.log(x)
+  })
+  ```
+
+  定时三秒，完成后回头调用function函数，函数都不用命名了，直接叫匿名函数
+
+  
+
+  
 

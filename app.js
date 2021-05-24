@@ -25,6 +25,7 @@ app.get('/', function (req, res){
 })
 
 app.get('/api/genres',function(req, res){
+    //之前定义的getgenres是一个函数，里面有callback，这里的function就是一个callback函数
     Genre.getGenres(function(err, genres){
         if(err){
             throw err;
@@ -34,6 +35,7 @@ app.get('/api/genres',function(req, res){
 })
 
 app.get('/api/books',function(req, res){
+    //之前定义的getbook是一个函数，里面有callback，这里的function就是一个callback函数
     Book.getBook(function(err, books){
         if(err){
             throw err;
