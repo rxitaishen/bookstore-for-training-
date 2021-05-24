@@ -99,17 +99,60 @@ db.genres(数据集名).insert({name:'Suspense'}) （书类型一的名字是“
 
 model代表的是数据库中的集合，通过Model才能对数据库进行操作
 
-mongoose.model(modelName, schema) 
+modelName 就是要**映射的集合名** mongoose会**自动**将集合名变**成复数**
 
-modelName 就是要映射的集合名 mongoose会自动将集合名变成复数
+`var whatever = mongoose.model(modelName, schema)//实例化model` 
 
 我们在上面的数据库操作中已经创建了genres集合和books集合
 
-所以这里modelname写genre也行（好像对大小写不是敏感
+所以这里modelname写genre也行，对genres这个数据集进行操作（好像对大小写不是敏感)
+
+
 
 [详情见这个博客（mongoose的使用介绍）]:https://blog.csdn.net/weixin_39200308/article/details/90232719
 
 ## 回调函数和res
+
+JS不会死等时间结束再跳出函数：
+
+```
+console.log(a)
+timer(3000, function (x) {
+    console.log(x)
+})
+```
+
+定时三秒，完成后回头调用function函数，函数都不用命名了，直接叫匿名函数。
+
+先执行完主体再执行回调函数里的内容。
+
+### express中间件（middleware）
+
+在回调函数里整个像这样的：
+
+`function（req,res,next)`
+
+其中next还要在函数里指明next()来执行同一个函数体内的下一个函数，还有一个nextrouter，这个是直接跳转到下一个路由了，通常在if语句里见到
+
+### ejs渲染（会在后续加入）
+
+怎么说呢，我第一次接触到一直不知道这个ejs渲染了html跟没渲染的有差别吗，后来我才明白了ejs的用途
+
+ejs是node的后端与html的前端之间的桥梁
+
+当然使用的时候要用app.set设置一些东西（这些等下次我把作业传回来再说）
+
+如：
+
+前端:<%=model > 
+
+后端:res.render(什么什么什么什么)
+
+### express app详录
+
+### res详录
+
+
 
 ## 其他
 
@@ -140,9 +183,34 @@ modelName 就是要映射的集合名 mongoose会自动将集合名变成复数
   })
   ```
 
-  定时三秒，完成后回头调用function函数，函数都不用命名了，直接叫匿名函数
+  定时三秒，完成后回头调用function函数，函数都不用命名了，直接叫匿名函数。
 
+  先执行完主体再执行回调函数里的内容。
+
+- ```
+  //定义model对象来针对modelname集合进行操作 实例化了一个mongoose的model来对数据集进行操作
+  var book = module.exports = mongoose.model('Book', bookSchema) //这样就可以对数据库Book中的document进行增删改查了
   
+  
+  //addBook定义
+  module.exports.addBook = function(book, callback){
+      Book.create(book, callback);
+  }
+  
+  
+  // Add Book
+  app.post('/api/books',function(req, res){
+      //之前定义的getgenres是一个函数，里面有callback，这里的function就是一个callback函数
+      var book  = req.body;
+      //book是req.body的实例化对象，好像是一个字典，function(err, book)是addBook定义中的callback函数
+      Book.addBook(book,function(err, book){
+          if(err){
+              throw err;
+          }
+          res.json(book);
+      })
+  })
+  ```
 
   
 

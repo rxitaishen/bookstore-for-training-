@@ -92,9 +92,11 @@ app.get('/api/books/:_id',function(req, res){
     })
 })
 
+// Add Book
 app.post('/api/books',function(req, res){
     //之前定义的getgenres是一个函数，里面有callback，这里的function就是一个callback函数
     var book  = req.body;
+    //book是req.body的实例化对象，好像是一个字典，function(err, book)是addBook定义中的callback函数
     Book.addBook(book,function(err, book){
         if(err){
             throw err;

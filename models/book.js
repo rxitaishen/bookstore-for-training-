@@ -35,8 +35,8 @@ var bookSchema = mongoose.Schema({
     }
 });
 
-//定义model对象来针对modelname集合进行操作 还是不懂这里model是什么 等会去查查官方文档
-var book = module.exports = mongoose.model('Book', bookSchema) //这样就可以对数据库Genre中的document进行增删改查了
+//定义model对象来针对modelname集合进行操作 实例化了一个mongoose的model来对数据集进行操作
+var book = module.exports = mongoose.model('Book', bookSchema) //这样就可以对数据库Book中的document进行增删改查了
 
 // Get Books 对外暴露接口,这里将function(callback,limit)函数命名为getGenres 这里callback和limit还是不懂怎么回事
 module.exports.getBook = function(callback, limit){
