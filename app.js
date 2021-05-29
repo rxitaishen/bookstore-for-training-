@@ -1,9 +1,12 @@
 var express = require('express');
 var app = express();
-var bodyParser = require('body-parser');
+//var bodyParser  = require('body-parser');//bodyParser在2019的时候被弃用了
 var mongoose = require("mongoose");
 
-app.use(bodyParser.json());
+//app.use(bodyParser.json());//这里显示被弃用的原因是表单文件还没有method=post
+//正解是直接通过express调用bodyParser的方法就可以了
+app.use(express.json())
+app.use(express.urlencoded({ extended: false }))
 
 //这里不需要文件扩展名.js
 Genre = require('./models/genre');
