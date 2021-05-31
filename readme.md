@@ -207,20 +207,48 @@ app.get("/input",(req,res)=>{
 **Request 对象** - request 对象表示 HTTP 请求，包含了请求查询字符串，参数，内容，HTTP 头部等属性。常见属性有：
 
 1. req.app：当callback为外部文件时，用req.app访问express的实例
+
 2. req.baseUrl：获取路由当前安装的URL路径
+
 3. req.body / req.cookies：获得「请求主体」/ Cookies
+
+   ```js
+   // POST user[name]=tobi&user[email]=tobi@learnboost.com
+   req.body.user.name
+   // => "tobi"
+   
+   req.body.user.email
+   // => "tobi@learnboost.com"
+   
+   // POST { "name": "tobi" }
+   req.body.name
+   // => "tobi"
+   ```
+
 4. req.fresh / req.stale：判断请求是否还「新鲜」
+
 5. req.hostname / req.ip：获取主机名和IP地址
+
 6. req.originalUrl：获取原始请求URL
+
 7. req.params：获取路由的parameters
+
 8. req.path：获取请求路径
+
 9. req.protocol：获取协议类型
+
 10. req.query：获取URL的查询参数串
+
 11. req.route：获取当前匹配的路由
+
 12. req.subdomains：获取子域名
+
 13. req.accepts()：检查可接受的请求的文档类型
+
 14. req.acceptsCharsets / req.acceptsEncodings / req.acceptsLanguages：返回指定字符集的第一个可接受字符编码
+
 15. req.get()：获取指定的HTTP请求头
+
 16. req.is()：判断请求头Content-Type的MIME类型
 
 **Response 对象** - response 对象表示 HTTP 响应，即在接收到请求时向客户端发送的 HTTP 响应数据。常见属性有：
