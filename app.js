@@ -17,7 +17,7 @@ app.get('/', (req, res) => {
 	res.send('Please use /api/books or /api/genres');
 });
 
-app.get('/api/genres', (req, res) => {
+app.get('/api/genres', (req, res ) => {
 	Genre.getGenres((err, genres) => {
 		if(err){
 			throw err;
@@ -57,7 +57,7 @@ app.delete('/api/genres/:_id', (req, res) => {
 	});
 });
 
-app.get('/api/books', (req, res) => {
+app.get('/api/books', (req, res ) => {
 	Book.getBooks((err, books) => {
 		if(err){
 			throw err;
@@ -67,24 +67,40 @@ app.get('/api/books', (req, res) => {
 });
 
 //貌似一直在执行这个,走不下去
-app.get('/api/books/:title', (req, res,next) => {
-	console.log(req.params.title)
+app.get('/api/books/:title', (req, res, next) => {
+	console.log('在走title')
 	Book.getBookByTitle(req.params.title, (err, book) => {
 		if(err){
 			//console.log(err);
 			throw err;
 		}
-		res.json(book);
+		if(book == null) {
+			console.log('title_book为null');
+			next('route');
+		}
+		else{
+			console.log('title_book不为null');
+			res.json(book);
+		} 
+			
 	});
-	next();
+	
 });
 
-app.get('/api/books/:_id', (req, res) => {
+app.get('/api/books/:_id', (req, res,next) => {
+	console.log('在走id')
 	Book.getBookById(req.params._id, (err, book) => {
 		if(err){
 			throw err;
 		}
-		res.json(book);
+		if(book == null) {
+			console.log('id_book为null');
+			next('route');
+		}
+		else{
+			console.log('id_book不为null');
+			res.json(book);
+		} 
 	});
 });
 
@@ -111,11 +127,15 @@ app.put('/api/books/:_id', (req, res) => {
 
 app.delete('/api/books/:_id', (req, res) => {
 	var id = req.params._id;
-	Book.removeBook(id, (err, book) => {
+	Book.removeBook(id, (err, book, next) => {
 		if(err){
 			throw err;
 		}
-		res.json(book);
+		if(book == null) {
+			console.log(book);
+			next('route');
+		}
+		else res.json(book);
 	});
 });
 
