@@ -99,7 +99,7 @@ db.genres(数据集名).insert({name:'Suspense'}) （书类型一的名字是“
 
 model代表的是数据库中的集合，通过Model才能对数据库进行操作
 
-modelName 就是要**映射的集合名** mongoose会**自动**将集合名变**成复数**
+modelName 就是要**映射的集合名**（数据库中的） mongoose会**自动**将集合名变**成复数**
 
 `var whatever = mongoose.model(modelName, schema)//实例化model` 
 
@@ -332,5 +332,228 @@ app.get("/input",(req,res)=>{
   })
   ```
 
-  
 
+
+------
+
+# @AngularJS
+
+## 初见
+
+**ng-app** 指令定义一个 AngularJS 应用程序。
+
+**ng-model** 指令把元素值（比如输入域的值）绑定到应用程序。
+
+**ng-bind** 指令把应用程序数据绑定到 HTML 视图。
+
+```html
+<div ng-app="">
+    <p>名字 : <input type="text" ng-model="name"></p>
+    <h1>Hello {{name}}</h1>
+    <p ng-bind="name"></p> //等同于<p>{{name}}</p>
+</div>
+```
+
+**ng-app** 指令告诉 AngularJS，<div> 元素是 AngularJS **应用程序** 的"所有者"。
+
+**ng-model** 指令把输入域的值绑定到应用程序变量 **name**。有model一定会有{{}}。*写在标签定义里。*
+
+**ng-bind** 指令把应用程序变量 name 绑定到某个段落的 innerHTML。只是直接写在标签定义里面了，然而中间就不用写了。
+
+[^注意]:一般来讲，就是app、ctrl、model这几个在用
+
+```html
+<div ng-app="" ng-init="firstName='John'">
+ 	<p>姓名为 <span ng-bind="firstName"></span></p> 
+</div>
+```
+
+**ng-init** 指令初始化 AngularJS 应用程序变量。
+
+## 表达式
+
+AngularJS 表达式写在双大括号内：**{{ expression }}**。
+
+AngularJS 表达式把数据绑定到 HTML，这与 **ng-bind** 指令有异曲同工之妙。
+
+AngularJS 将在表达式书写的位置"输出"数据。表达式可执行
+
+**AngularJS 表达式** 很像 **JavaScript 表达式**：它们可以包含文字、运算符和变量。
+
+​		与 JavaScript 表达式不同，AngularJS 表达式可以写在 HTML 中。
+
+​		与 JavaScript 表达式不同，AngularJS 表达式不支持条件判断，循环及异常。
+
+​		与 JavaScript 表达式不同，AngularJS 表达式支持过滤器。
+
+实例 {{ 5 + 5 }} 或 {{ firstName + " " + lastName }}
+
+
+
+## 应用
+
+AngularJS **模块（Module）** 定义了 AngularJS 应用。
+
+AngularJS **控制器（Controller）** 用于控制 AngularJS 应用。
+
+**ng-app**指令指明了应用, **ng-controller** 指明了控制器。
+
+```html
+<div ng-app="myApp" ng-controller="myCtrl">
+ 
+名: <input type="text" ng-model="firstName"><br>
+姓: <input type="text" ng-model="lastName"><br>
+<br>
+姓名: {{firstName + " " + lastName}}
+ 
+</div>
+ 
+<script>
+var app = angular.module('myApp', []); 
+app.controller('myCtrl', function($scope) {
+    $scope.firstName= "John";
+    $scope.lastName= "Doe";
+});
+</script>
+```
+
+[^angular.module]:可以理解为引用名字为myapp的应用程序作为模块，第一个参数是模块的名称，第二个参数是依赖列表，也就是要引用到的其他模块
+
+## 字典与数组
+
+```html
+//字典
+<div ng-app="" ng-init="person={firstName:'John',lastName:'Doe'}">//数组为point=[2,3,5]
+<p>姓为 {{ person.lastName }}</p>
+</div>
+```
+
+## 指令
+
+除了上面的ng-app\ng-init\ng-model等等之外，还有几个指令需要了解
+
+### *ng-model
+
+`ng-model` 指令可以将输入域的值与 AngularJS 创建的变量绑定。
+
+### *ng-repeat
+
+**ng-repeat** 指令会重复一个 HTML 元素：
+
+```
+<div ng-app="" ng-init="names=['Jani','Hege','Kai']">
+  <p>使用 ng-repeat 来循环数组</p>
+  <ul>
+    <li ng-repeat="x in names">
+      {{ x }}
+    </li>
+  </ul>
+</div>
+```
+
+<img src="C:\Users\11195\AppData\Roaming\Typora\typora-user-images\image-20210602112945617.png" alt="image-20210602112945617" style="zoom:50%;" />
+
+**ng-repeat** 指令用在一个对象数组上：
+
+```
+<div ng-app="" ng-init="names=[
+{name:'Jani',country:'Norway'},
+{name:'Hege',country:'Sweden'},
+{name:'Kai',country:'Denmark'}]">
+ 
+<p>循环对象：</p>
+<ul>
+  <li ng-repeat="x    in names">
+    {{ x.name + ', ' + x.country }}
+  </li>
+</ul>
+
+</div>
+```
+
+<img src="C:\Users\11195\AppData\Roaming\Typora\typora-user-images\image-20210602113148327.png" alt="image-20210602113148327" style="zoom:50%;" />
+
+## Scope
+
+是先有视图（html），再有控制器。先要在视图中有{{carname}}，才能在控制器中有$scope.carname，不然控制器获取不到carname这个变量，不知道赋值到哪，或者……两者相辅相成？不分先后只要对应起来就可以？
+
+​	当在控制器中添加 **$scope** 对象时，视图 (HTML) 可以获取了这些属性。
+
+​	视图中，你不需要添加 **$scope** 前缀, 只需要添加属性名即可，如： **{{carname}}**。
+
+控制器中创建一个属性名 "carname"，对应了视图中使用 {{ }} 中的名称
+
+
+------
+
+
+
+# @Express
+
+
+首先，在 **wiki.js** 模块中创建一个维基路由。代码一开始导入 Express 应用对象，用它取得一个 `Router` 对象，然后用 `get()` 方法向其添加两个具体的路由。模块的最后导出该 `Router` 对象。
+
+```
+// wiki.js - 维基路由模块
+
+const express = require('express');
+const router = express.Router();
+
+// 主页路由
+router.get('/', (req, res) => {
+  res.send('维基主页');
+});
+
+// “关于页面”路由
+router.get('/about', (req, res) => {
+  res.send('关于此维基');
+});
+
+module.exports = router;
+```
+
+**注：**上面的路由处理回调直接定义在了路由函数中。LocalLibrary 的回调将定义在单独的控制器模块中。
+
+要在主应用中使用该路由模块，首先应 `require` 它（**wiki.js**），然后对 Express 应用对象调用 `use()`（指定路径‘/wiki’），即可将其添加到中间件处理路径。
+
+```
+const wiki = require('./wiki.js');
+// ...
+app.use('/wiki', wiki);
+```
+
+这时 `wiki` 模块中定义的两个路由就可以从 `/wiki/` 和 `/wiki/about/` 访问了。
+
+### [路由函数](https://developer.mozilla.org/zh-CN/docs/learn/Server-side/Express_Nodejs/routes#路由函数)
+
+上述模块定义了两个典型的路由函数。`Router.get()` 方法定义的 “about” 路由（下方重现的）仅响应 HTTP GET 请求。第一个参数是 URL 路径，第二个参数是一个回调，在收到带有路径的HTTP GET 请求将调用之。
+
+```
+router.get('/about', (req, res) => {
+  res.send('关于此维基');
+});
+```
+
+该回调有三个参数（通常命名为：`req`、`res`、`next`），分别是：HTTP 请求对象、HTTP 响应、中间件链中的下一个函数。
+
+**注：**路由函数就是 [Express 中间件](https://developer.mozilla.org/en-US/docs/Learn/Server-side/Express_Nodejs/Introduction#Using_middleware)，这意味着它们必须（通过响应）结束请求，否则必须调用链中的 `next` 函数。上述示例使用`send()` 完成了请求，所以没有使用 `next` 参数（参数表中将其省略）。
+
+上述路由函数只需要一个回调，可以根据需要指定任意数量的回调参数，或一个回调函数数组。每个函数都将加入中间件链，并且将按添加顺序调用（若有回调完成请求则中止当前周期）。
+
+### [路由参数](https://developer.mozilla.org/zh-CN/docs/learn/Server-side/Express_Nodejs/routes#路由参数)
+
+路径参数是命名的 URL 段，用于捕获在 URL 中的位置指定的值。命名段以冒号为前缀，然后是名称（例如 `/**:**your_parameter_name/`。捕获的值保存在 `req.params` 对象中，键即参数名（例如 `req.params.your_parameter_name`）。
+
+举例说，一个包含用户和藏书信息的 URL：`http://localhost:3000/users/34/books/8989`，可以这样提取信息（使用 `userId` 和 `bookId` 路径参数）：
+
+```
+app.get('/users/:userId/books/:bookId', (req, res) => {
+  // 通过 req.params.userId 访问 userId
+  // 通过 req.params.bookId 访问 bookId
+  res.send(req.params);
+});
+```
+
+路由参数名必须由“单词字符”（/`[A-Za-z0-9_]`/）组成。
+
+**注：**URL *`/book/create` 会匹配* `/book/:bookId` 这样的路由（将提取值为'`create`' 的 '`bookId`'）。第一个与传入 URL 相匹配的路由会被使用，因此 `/book/create` 的路由处理器必须定义在 `/book/:bookId` 路由之前，才能妥善处理。
