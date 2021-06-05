@@ -16,6 +16,14 @@ myApp.controller('BooksController', ['$scope', '$http', '$location', '$routePara
 		});
 	}
 
+	//在搜索框里使用，根据搜索框跳转到具体页面，参考view detail按钮，未完成6.5.15.46
+	$scope.getBookByTitle = function(){
+		var title = $routeParams.title;
+		$http.get('/api/books/'+title).success(function(response){
+			$scope.book = response;
+		});
+	}
+
 	$scope.addBook = function(){
 		console.log($scope.book);
 		$http.post('/api/books/', $scope.book).success(function(response){
@@ -35,4 +43,6 @@ myApp.controller('BooksController', ['$scope', '$http', '$location', '$routePara
 			window.location.href='#/books';
 		});
 	}
+
+
 }]);

@@ -1,7 +1,7 @@
-<a href="#/books">Go Back</a>
+<a href="#/books">返回</a>
 <div class="panel panel-default">
   <div class="panel-heading">
-    <h3 class="panel-title">Add Book</h3>
+    <h3 class="panel-title">添加电影</h3>
   </div>
   <div class="panel-body">
     <div class="row">
@@ -11,38 +11,39 @@
           <label>Title</label>
           <input type="text" class="form-control" ng-model="book.title" placeholder="Title">
         </div>
+        <!--记得把mongo里的数据也要删除和改进，或许可以在页面中操作?-->
         <div class="form-group">
-          <label>Genre</label>
+          <label>电影类型</label>
           <select ng-model="book.genre" class="form-control">
-            <option value="Suspense">Suspense</option>
-            <option value="Drama">Drama</option>
-            <option value="Romance">Romance</option>
-            <option value="NonFiction">NonFiction</option>
-            <option value="Other">Other</option>
+            <option value="Suspense">悬疑</option>
+            <option value="Drama">剧情</option>
+            <option value="Romance">浪漫</option>
+            <option value="NonFiction">纪实</option>
+            <option value="Other">其他</option>
           </select>
         </div>
         <div class="form-group">
-          <label>Author</label>
+          <label>导演</label>
           <input type="text" class="form-control" ng-model="book.author" placeholder="Author">
         </div>
         <div class="form-group">
-          <label>Publisher</label>
+          <label>编剧</label>
           <input type="text" class="form-control" ng-model="book.publisher" placeholder="Publisher">
         </div>
         <div class="form-group">
-          <label>Pages</label>
+          <label>时长</label>
           <input type="text" class="form-control" ng-model="book.pages" placeholder="Pages">
         </div>
         <div class="form-group">
-          <label>Description</label>
+          <label>简介</label>
           <textarea class="form-control" ng-model="book.description" placeholder="Description"></textarea>
         </div>
         <div class="form-group">
-          <label>Image URL</label>
+          <label>图片地址</label>
           <input type="text" class="form-control" ng-model="book.image_url" placeholder="Image URL">
         </div>
         <div class="form-group">
-          <label>Buy URL</label>
+          <label>官方网站</label>
           <input type="text" class="form-control" ng-model="book.buy_url" placeholder="Buy URL">
         </div>
       

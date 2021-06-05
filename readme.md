@@ -358,7 +358,7 @@ app.get("/input",(req,res)=>{
 
 **ng-app** 指令告诉 AngularJS，<div> 元素是 AngularJS **应用程序** 的"所有者"。
 
-**ng-model** 指令把输入域的值绑定到应用程序变量 **name**。有model一定会有{{}}。*写在标签定义里。*
+**ng-model** 指令把**输入域的值绑定到应用程序变量** **name**。有model一定会有{{}}。*写在标签定义里。***ng-model** 指令绑定输入域到控制器的属性，控制器由$scope操作
 
 **ng-bind** 指令把应用程序变量 name 绑定到某个段落的 innerHTML。只是直接写在标签定义里面了，然而中间就不用写了。
 
@@ -370,7 +370,19 @@ app.get("/input",(req,res)=>{
 </div>
 ```
 
-**ng-init** 指令初始化 AngularJS 应用程序变量。
+**ng-init** 指令初始化 AngularJS 应用程序变量。执行引号里的内容
+
+以上这些ng开头的被称为指令，他们是angular送给html的新属性，angularjs通过被称为 **指令** 的新属性来扩展 HTML
+
+你要是想让变量跟这些控件联系起来的话就用这些ng指令，只是单独展示的话，{{}}可以考虑一下哦。比如<input ng-model='name'>,input是个输入框，输入框中的值与ng-model变量name关联起来，如果改变了输入框内的文字，name也会被因为关联而改变
+
+（scripe代码）**var myapp = angular.module('myApp',[])** 定义了模块名称，也就是定义了一个模块，当html中的ng-app后面跟的就是这个模块的名称，值得注意的是，一旦html中的ng-app跟了名称，ng-app会去找对应模块的执行代码，也就是这里的scripe代码。angular.module第一个参数是模块的名称，第二个参数是该模块所依赖的其他模块。
+
+AngularJS 应用组成如下：
+
+- View(视图), 即 HTML。
+- Model(模型), 当前视图中可用的数据。
+- Controller(控制器), 即 JavaScript 函数，可以添加或修改属性。
 
 ## 表达式
 
@@ -432,11 +444,11 @@ app.controller('myCtrl', function($scope) {
 
 ## 指令
 
-除了上面的ng-app\ng-init\ng-model等等之外，还有几个指令需要了解
+除了上面的ng-app\ng-init\ng-model等等之外，还有几个指令需要了解。
 
 ### *ng-model
 
-`ng-model` 指令可以将输入域的值与 AngularJS 创建的变量绑定。
+`ng-model` 指令可以将输入域的值与 AngularJS 创建的变量绑定。也写在标签定义里面，通常是<input ng-model='name'>，可以简易理解为创建了一个name对象，可以被赋值和利用表达式调用
 
 ### *ng-repeat
 
@@ -477,13 +489,96 @@ app.controller('myCtrl', function($scope) {
 
 ## Scope
 
-是先有视图（html），再有控制器。先要在视图中有{{carname}}，才能在控制器中有$scope.carname，不然控制器获取不到carname这个变量，不知道赋值到哪，或者……两者相辅相成？不分先后只要对应起来就可以？
+**scope 是一个 JavaScript 对象，带有属性和方法，这些属性和方法可以在视图和控制器中使用。**这些属性和方法在html中的ng-model（用于创建对象）中获取
+
+~~是先有视图（html），再有控制器。先要在视图中有{{carname}}，才能在控制器中有$scope.carname，不然控制器获取不到carname这个变量，不知道赋值到哪，或者……两者相辅相成？~~不分先后只要对应起来就可以？
 
 ​	当在控制器中添加 **$scope** 对象时，视图 (HTML) 可以获取了这些属性。
 
 ​	视图中，你不需要添加 **$scope** 前缀, 只需要添加属性名即可，如： **{{carname}}**。
 
 控制器中创建一个属性名 "carname"，对应了视图中使用 {{ }} 中的名称
+
+[^小贴士]:ng-app\ng-contorller都会先在标签内声明，这里强烈建议去看一下这个博客，或许对ng-app\ng-contorller的理解有帮助  [ng-app与ng-app='myApp'的区别](https://www.cnblogs.com/echolun/p/8655986.html)
+
+### *作用域
+
+只要是自己所对应的ng-ctrl（应用），那个ng-ctrl容器里的所有就是她的作用域
+
+### *根作用域
+
+所有的应用都有一个 **$rootScope**，它可以作用在 **ng-app** 指令包含的所有 HTML 元素中。
+
+**$rootScope** 可作用于整个应用中。是各个 controller 中 scope 的桥梁。用 rootscope 定义的值，可以在各个 controller 中使用。
+
+创建控制器时，将 $rootScope 作为**参数传递**，可在应用中使用。如下面示例中控制器函数所示
+
+### *示例
+
+```
+<div ng-app="myApp" ng-controller="myCtrl">
+
+<h1>{{lastname}} 家族成员:</h1>
+
+<ul>
+    <li ng-repeat="x in names">{{x}} {{lastname}}</li>
+</ul>
+
+</div>
+
+<script>
+var app = angular.module('myApp', []);
+
+app.controller('myCtrl', function($scope, $rootScope) {
+    $scope.names = ["Emil", "Tobias", "Linus"];
+    $rootScope.lastname = "Refsnes";
+});
+</script>
+```
+
+## 控制器
+
+好像没什么好说的，她是 **JavaScript 对象**，由标准的 JavaScript **对象的构造函数** 创建。
+
+AngularJS 应用程序被控制器控制。
+
+**ng-controller** 指令定义了应用程序控制器。
+
+[^小贴士]:要用控制器的话只要在index页上添加引用代码，之后其他的子页也都用上了。<script src="personController.js"></script>
+
+## 服务
+
+在 AngularJS 中，服务是一个函数或对象，可在你的 AngularJS 应用中使用。
+
+AngularJS 内建了30 多个服务。
+
+有个 **$location** 服务，它可以返回当前页面的 URL 地址。
+
+```
+var app = angular.module('myApp', []);
+app.controller('customersCtrl', function($scope, $location) {
+    $scope.myUrl = $location.absUrl();
+});
+```
+
+### *$http服务
+
+**$http** 是 AngularJS 应用中最常用的服务。 服务向服务器发送请求，应用响应服务器传送过来的数据。
+
+[^大贴士]:【http模拟浏览器发送请求->请求被后端的express接收到(app.js)，执行相应代码->更新数据库等一系列操作->后端express的res返回数据给angular的http服务->angular的http服务成功后（.success），会将获取到的数据捆绑至scope对象的属性中（自己设置的函数）->前端代码利用scope对象的属性来展示。】
+
+```
+var app = angular.module('myApp', []);
+app.controller('myCtrl', function($scope, $http) {
+    $http.get("welcome.htm").then(function (response) {
+        $scope.myWelcome = response.data;
+    });
+});
+```
+
+
+
+[^小贴士]:控制器内那些美元符号的都叫做服务：
 
 
 ------
