@@ -12,7 +12,7 @@ const UserSchema = mongoose.Schema({
 	},
     admin:{
         type: Boolean,
-        required: true
+        
     }
 });
 
@@ -23,11 +23,11 @@ module.exports.getUsers = (callback, limit) => {
 	User.find(callback).limit(limit);
 }
 
-//Get Book By Name
-module.exports.getBookByName = (name, callback)=>{
-	User.findOne({"name": name},callback);
-	//console.log(title);
-}
+// //Get Book By Name
+// module.exports.getBookByName = (name,password, callback)=>{
+// 	User.findOne({"name": name,"password": password},callback);
+// 	//console.log(title);
+// }
 
 // Add User
 module.exports.addUser = (user, callback) => {
