@@ -20,7 +20,15 @@ myApp.controller('BooksController', ['$scope', '$http', '$location', '$routePara
 	$scope.getBookByTitle = function(){
 		var title = $routeParams.title;
 		$http.get('/api/books/'+title).success(function(response){
-			$scope.book = response;
+			$scope.bookT = response;
+		});
+	}
+
+	$scope.getBookByPublisher = function(publisher){
+		//var publisher = $routeParams.publisher;
+		
+		$http.get('/api/books/publisher/'+publisher).success(function(response){
+			$scope.bookP = response;
 		});
 	}
 
@@ -44,5 +52,16 @@ myApp.controller('BooksController', ['$scope', '$http', '$location', '$routePara
 		});
 	}
 
+	$scope.login = function(){
+		$http.post('/api/user/',$scope.user).success(function(response){
+			window.location.href='#/books';
+		});
+	}
+
+	$scope.register = function(){
+		$http.post('/api/users/',$scope.user).success(function(response){
+			window.location.href='#/login';
+		});
+	}
 
 }]);
