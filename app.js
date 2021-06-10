@@ -84,14 +84,13 @@ app.post('/api/users', (req, res) => {
 app.post('/api/user', (req, res) => {
 	var user = req.body;
 	User.findOne({"name":user.name,"password":user.password}, (err, user) => {
-		if(err){
-			throw err;
-		}
-		if(user){
-			res.json(user)
-			//res.send("success");
-		}
-		else res.send("failed")
+		if(err) throw err;
+        if(user){
+			console.log(user)
+            res.send('登录成功');
+        }else {
+            res.send('账号或密码错误')
+        }
 	});
 });
 
