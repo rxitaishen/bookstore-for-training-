@@ -59,7 +59,7 @@ app.delete('/api/genres/:_id', (req, res) => {
 });
 
 //这里开始写user的路由
-
+//获取user列表
 app.get('/api/users', (req, res ) => {
 	User.getUsers((err, users) => {
 		if(err){
@@ -69,6 +69,7 @@ app.get('/api/users', (req, res ) => {
 	});
 });
 
+//用户注册
 app.post('/api/users', (req, res) => {
 	var user = req.body;
 	User.addUser(user, (err, user) => {
@@ -79,16 +80,22 @@ app.post('/api/users', (req, res) => {
 	});
 });
 
-app.get('/api/users/:name', (req, res) => {
-	var name = req.params.name;
+//检测登录用户
+app.post('/api/user', (req, res) => {
 	var user = req.body;
-	User.getBookByName(name, user, {}, (err, user) => {
+	User.findOne({"name":user.name,"password":user.password}, (err, user) => {
 		if(err){
 			throw err;
 		}
-		res.json(user);
+		if(user){
+			res.json(user)
+			//res.send("success");
+		}
+		else res.send("failed")
 	});
 });
+
+
 
 /*app.delete('/api/genres/:_id', (req, res) => {
 	var id = req.params._id;
@@ -120,7 +127,7 @@ app.get('/api/books', (req, res ) => {
 });
 
 //貌似一直在执行这个,走不下去
-app.get('/api/books/:publisher', (req, res, next) => {
+app.get('/api/books/publisher/:publisher', (req, res, next) => {
 	console.log('在走publisher')
 	Book.getBookByPb(req.params.publisher, (err, book) => {
 		if(err){
