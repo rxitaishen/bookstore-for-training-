@@ -41,6 +41,10 @@ myApp.config(function($routeProvider){
 		controller:'BooksController',
 		templateUrl: 'views/register.html'
 	})
+	.when('/loginErr',{
+		controller:'BooksController',
+		templateUrl: 'views/err.html'
+	})
 	.otherwise({
 		redirectTo: '/' //redirectTo:重定向的地址。
 	});

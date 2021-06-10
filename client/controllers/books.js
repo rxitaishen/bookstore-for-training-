@@ -1,4 +1,6 @@
 var myApp = angular.module('myApp');
+var publisherName=""
+var wheatherAdmin=""
 
 myApp.controller('BooksController', ['$scope', '$http', '$location', '$routeParams', function($scope, $http, $location, $routeParams){
 	console.log('BooksController loaded...');
@@ -24,10 +26,10 @@ myApp.controller('BooksController', ['$scope', '$http', '$location', '$routePara
 		});
 	}
 
-	$scope.getBookByPublisher = function(publisher){
+	$scope.getBookByPublisher = function(){
 		//var publisher = $routeParams.publisher;
 		
-		$http.get('/api/books/publisher/'+publisher).success(function(response){
+		$http.get('/api/books/publisher/'+publisherName).success(function(response){
 			$scope.bookP = response;
 		});
 	}
@@ -53,13 +55,21 @@ myApp.controller('BooksController', ['$scope', '$http', '$location', '$routePara
 	}
 
 	$scope.login = function(){
-		$http.post('/api/user/',$scope.user).success(function(response){
-			window.location.href='#/books';
-		});
+		$http.post('/api/user/',$scope.user).success(function(response){  //response就是res.send
+			publisherName = $scope.user.name;
+			wheatherAdmin = $scope.user.admin;
+			console.log(response)
+			if(response == '账号或密码错误'){
+				window.location.href='#/loginErr';
+			}
+			else {
+				window.location.href='#/books';
+			}
+		})
 	}
 
 	$scope.register = function(){
-		$http.post('/api/users/',$scope.user).success(function(response){
+		$http.post('/api/users/',$scope.user).success(function(response){ //$scope.user是post得到的body
 			window.location.href='#/login';
 		});
 	}
