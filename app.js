@@ -86,9 +86,12 @@ app.post('/api/user', (req, res) => {
 	User.findOne({"name":user.name,"password":user.password}, (err, user) => {
 		if(err) throw err;
         if(user){
-			console.log(user)
-            res.send('登录成功');
+			//console.log(user)
+			//res.send('登录成功');  json跟send只能有一个哦 不然就终止请求了
+			res.json(user)
+            
         }else {
+			//throw new Error("账号或密码错误");
             res.send('账号或密码错误')
         }
 	});
