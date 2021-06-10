@@ -11,7 +11,7 @@ myApp.config(function($routeProvider){
 	console.log('在执行前端app哦')
 	$routeProvider.when('/', {        //这边是创建路由,homepage,因为一开始就是/作为根目录了
 		controller:'BooksController', //controller:function、string或数组类型，在当前模板上执行的controller函数，生成新的scope。
-		templateUrl: 'views/books.html'
+		templateUrl: 'views/root.html'
 	})
 	.when('/books', {
 		controller:'BooksController',
@@ -35,12 +35,12 @@ myApp.config(function($routeProvider){
 	})
 	.when('/login',{
 		controller:'BooksController',
-		templateUrl: 'root.html'
+		templateUrl: 'views/root.html'
 	})
-	.when('/root',{
+	.when('/register',{
 		controller:'BooksController',
-		templateUrl: 'root.html'
-	})//这里是被插进来的，插到那个index的div view里，难怪之前会一直出现导航栏在上面的情况 我应该去修改index页面，通过这个url来配置该进入的那个页面
+		templateUrl: 'views/register.html'
+	})
 	.otherwise({
 		redirectTo: '/' //redirectTo:重定向的地址。
 	});
