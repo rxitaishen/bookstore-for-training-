@@ -110,8 +110,14 @@ modelName 就是要**映射的集合名**（数据库中的） mongoose会**自�
 
 
 [详情见这个博客（mongoose的使用介绍）]:https://blog.csdn.net/weixin_39200308/article/details/90232719
-
 [Mongoose快速入门]:https://blog.csdn.net/weixin_45828332/article/details/114120710
+[node.js取参四种方法req.body,req.params,req.param,req.body]:(https://www.cnblogs.com/jkingdom/p/8065202.html)
+
+**res.redirect('/userList');      *// 重定向到所用用户列表*** 然后再写个路由get('/userList')来操作
+
+表单的action是提交后，url重定向到action后面的路径
+
+在angular中，重定向要加#才能到指定页面，其中，跳转的命令在html中执行，ctrl里定义的函数只是用在html中初始化页面用
 
 ## 回调函数和res
 

@@ -120,19 +120,19 @@ app.get('/api/books', (req, res ) => {
 });
 
 //貌似一直在执行这个,走不下去
-app.get('/api/books/:title', (req, res, next) => {
-	console.log('在走title')
-	Book.getBookByTitle(req.params.title, (err, book) => {
+app.get('/api/books/:publisher', (req, res, next) => {
+	console.log('在走publisher')
+	Book.getBookByPb(req.params.publisher, (err, book) => {
 		if(err){
 			//console.log(err);
 			throw err;
 		}
 		if(book == null) {
-			console.log('title_book为null');
+			console.log('publisher_book为null');
 			next('route');
 		}
 		else{
-			console.log('title_book不为null');
+			console.log('publisher_book不为null');
 			res.json(book);
 		} 
 			

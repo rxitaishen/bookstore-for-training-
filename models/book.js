@@ -18,7 +18,8 @@ const bookSchema = mongoose.Schema({
 		required: true
 	},
 	publisher:{
-		type: String
+		type: String,
+		required: true
 	},
 	pages:{
 		type: String
@@ -47,9 +48,9 @@ module.exports.getBookById = (id, callback) => {
 	Book.findById(id, callback);
 }
 
-//Get Book By Title
-module.exports.getBookByTitle = (title, callback)=>{
-	Book.findOne({"title": title},callback);
+//Get Book By Publisher
+module.exports.getBookByPb = (publisher, callback)=>{
+	Book.findOne({"publisher": publisher},callback);
 	//console.log(title);
 }
 
