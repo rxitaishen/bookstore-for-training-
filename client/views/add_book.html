@@ -11,7 +11,7 @@
 	  </div>
 	  
 	  <div id="navbar" class="collapse navbar-collapse">
-		<form class="navbar-form navbar-left" method="get" action="#"><!--搜索电影通过title搜索，搜索到后跳转到那个电影详情页-->
+		<form class="navbar-form navbar-left" method="get" action="#/books"><!--搜索电影通过title搜索，搜索到后跳转到那个电影详情页-->
 		  <div class="form-group">
 			<input type="text" class="form-control" placeholder="搜索电影">
 		  </div>
@@ -37,8 +37,8 @@
             <div class="col-md-12">
             <form ng-submit="addBook()">
               <div class="form-group">
-                <label>Title</label>
-                <input type="text" class="form-control" ng-model="book.title" placeholder="Title">
+                <label>电影名称</label>
+                <input type="text" class="form-control" ng-model="book.title" placeholder="电影名">
               </div>
               <!--记得把mongo里的数据也要删除和改进，或许可以在页面中操作?-->
               <div class="form-group">
@@ -53,30 +53,30 @@
               </div>
               <div class="form-group">
                 <label>导演</label>
-                <input type="text" class="form-control" ng-model="book.author" placeholder="Author">
+                <input type="text" class="form-control" ng-model="book.author" placeholder="导演">
               </div>
               <div class="form-group">
                 <label>编剧</label>
-                <input type="text" class="form-control" ng-model="book.publisher" placeholder="Publisher">
+                <input type="text" class="form-control" ng-model="book.publisher" placeholder="院线">
               </div>
               <div class="form-group">
                 <label>时长</label>
-                <input type="text" class="form-control" ng-model="book.pages" placeholder="Pages">
+                <input type="text" class="form-control" ng-model="book.pages" placeholder="时长">
               </div>
               <div class="form-group">
                 <label>简介</label>
-                <textarea class="form-control" ng-model="book.description" placeholder="Description"></textarea>
+                <textarea class="form-control" ng-model="book.description" placeholder="描述"></textarea>
               </div>
               <div class="form-group">
                 <label>图片地址</label>
-                <input type="text" class="form-control" ng-model="book.image_url" placeholder="Image URL">
+                <input type="text" class="form-control" ng-model="book.image_url" placeholder="图片地址">
               </div>
               <div class="form-group">
-                <label>官方网站</label>
-                <input type="text" class="form-control" ng-model="book.buy_url" placeholder="Buy URL">
+                <label>豆瓣网站</label>
+                <input type="text" class="form-control" ng-model="book.buy_url" placeholder="详情地址">
               </div>
             
-              <button type="submit" class="btn btn-default">Submit</button>
+              <button type="submit" class="btn btn-default">提交</button>
             </form>
           </div>
           </div>
