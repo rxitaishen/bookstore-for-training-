@@ -58,6 +58,7 @@ myApp.controller('BooksController', ['$scope', '$http', '$location', '$routePara
 		$http.post('/api/user/',$scope.user).success(function(response){  //response就是res.send
 			publisherName = $scope.user.name;
 			wheatherAdmin = $scope.user.admin;
+			console.log(wheatherAdmin)
 			console.log(response)
 			if(response == '账号或密码错误'){
 				window.location.href='#/loginErr';
