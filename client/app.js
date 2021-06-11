@@ -15,23 +15,27 @@ myApp.config(function($routeProvider){
 	})
 	.when('/books', {
 		controller:'BooksController',
-		templateUrl: 'views/books.html'
+		templateUrl: 'views/admin/books.html'
 	})
 	.when('/books/details/:id',{
 		controller:'BooksController',
-		templateUrl: 'views/book_details.html'
+		templateUrl: 'views/admin/book_details.html'
 	})
 	.when('/books/details/:title',{
 		controller:'BooksController',
-		templateUrl: 'views/book_details.html'
+		templateUrl: 'views/admin/book_search.html'
 	})
 	.when('/books/add',{
 		controller:'BooksController',
-		templateUrl: 'views/add_book.html'
+		templateUrl: 'views/admin/add_book.html'
 	})
 	.when('/books/edit/:id',{
 		controller:'BooksController',
-		templateUrl: 'views/edit_book.html'
+		templateUrl: 'views/admin/edit_book.html'
+	})
+	.when('/booksClienter',{
+		controller:'BooksController',
+		templateUrl: 'views/clienter/books.html'
 	})
 	.when('/login',{
 		controller:'BooksController',
