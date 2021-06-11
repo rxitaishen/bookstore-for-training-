@@ -368,6 +368,8 @@ app.get("/input",(req,res)=>{
 
 **ng-bind** 指令把应用程序变量 name 绑定到某个段落的 innerHTML。只是直接写在标签定义里面了，然而中间就不用写了。
 
+**ng-include**后面写的是html文件对应的url地址，是相对于index.html的地址。
+
 [^注意]:一般来讲，就是app、ctrl、model这几个在用
 
 ```html
