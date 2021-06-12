@@ -1,6 +1,7 @@
 var myApp = angular.module('myApp');
 var publisherName=""
 var wheatherAdmin=""
+var titleName=""
 
 myApp.controller('BooksController', ['$scope', '$http', '$location', '$routeParams', function($scope, $http, $location, $routeParams){
 	console.log('BooksController loaded...');
@@ -20,8 +21,9 @@ myApp.controller('BooksController', ['$scope', '$http', '$location', '$routePara
 
 	//在搜索框里使用，根据搜索框跳转到具体页面，参考view detail按钮，未完成6.5.15.46
 	$scope.getBookByTitle = function(){
-		var title = $routeParams.title;
-		$http.get('/api/books/'+title).success(function(response){
+		var titleName = $scope.titleName;//好像angular可以用表单改变值， 菜鸟那里
+		console.log($scope.titleName)
+		$http.get('/api/books/title/'+titleName).success(function(response){
 			$scope.bookT = response;
 		});
 	}
@@ -57,14 +59,16 @@ myApp.controller('BooksController', ['$scope', '$http', '$location', '$routePara
 	$scope.login = function(){
 		$http.post('/api/user/',$scope.user).success(function(response){  //response就是res.send
 			publisherName = $scope.user.name;
-			wheatherAdmin = $scope.user.admin;
-			console.log(wheatherAdmin)
-			console.log(response)
+			// wheatherAdmin = $scope.user.admin; 表单里并没有admin
+			console.log(response.admin)
 			if(response == '账号或密码错误'){
 				window.location.href='#/loginErr';
 			}
 			else {
-				window.location.href='#/books';
+				if(response.admin==true)
+					window.location.href='#/books';
+				else
+					window.location.href='#/booksClienter';
 			}
 		})
 	}
