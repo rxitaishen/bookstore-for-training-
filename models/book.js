@@ -56,7 +56,7 @@ module.exports.getBookByPb = (publisher, callback)=>{
 
 //Get Book By Title
 module.exports.getBookByTitle = (title, callback)=>{
-	Book.find({"title": title},callback);
+	Book.findOne({"title": title},callback);
 	//console.log(title);
 }
 

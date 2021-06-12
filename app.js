@@ -85,6 +85,7 @@ app.post('/api/user', (req, res) => {
 	var user = req.body;
 	User.findOne({"name":user.name,"password":user.password}, (err, user) => {
 		if(err) throw err;
+		console.log(user)
         if(user){
 			//console.log(user)
 			//res.send('登录成功');  json跟send只能有一个哦 不然就终止请求了
@@ -139,13 +140,13 @@ app.get('/api/books/publisher/:publisher', (req, res, next) => {
 			//console.log(err);
 			throw err;
 		}
-		if(bookP == null) {
-			console.log('publisher_book为null');
-			next('route');
-		}
-		else{
+		if(bookP) {
 			console.log('publisher_book不为null');
 			res.json(bookP);
+		}
+		else{
+			console.log('publisher_book为null');
+			res.send("管理员登录错误，虽然我不可能出现")
 		} 
 			
 	});
@@ -155,17 +156,18 @@ app.get('/api/books/publisher/:publisher', (req, res, next) => {
 app.get('/api/books/title/:title', (req, res, next) => {
 	console.log('在走title')
 	Book.getBookByTitle(req.params.title, (err, bookT) => {
+		console.log(bookT)
 		if(err){
 			//console.log(err);
 			throw err;
 		}
-		if(bookT == null) {
-			console.log('title_book为null');
-			next('route');
-		}
-		else{
+		if(bookT) { //findone 和find 返回值有区别，当找不到时 find返回空数组，findone返回null
 			console.log('title_book不为null');
 			res.json(bookT);
+		}
+		else{
+			console.log('title_book为null');
+			res.send("未找到相关信息")
 		} 
 			
 	});

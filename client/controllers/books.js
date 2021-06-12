@@ -16,17 +16,71 @@ myApp.controller('BooksController', ['$scope', '$http', '$location', '$routePara
 		var id = $routeParams.id;
 		$http.get('/api/books/'+id).success(function(response){
 			$scope.book = response;
+			console.log(response)
+			console.log(response.author)
 		});
 	}
 
 	//在搜索框里使用，根据搜索框跳转到具体页面，参考view detail按钮，未完成6.5.15.46
 	$scope.getBookByTitle = function(){
-		var titleName = $scope.titleName;//好像angular可以用表单改变值， 菜鸟那里
-		console.log($scope.titleName)
+		// $scope.titleName = "信条"
+		// var titleName = $scope.titleName;//好像angular可以用表单改变值， 菜鸟那里
+		// console.log("在前端title")
+		// console.log($scope.titleName)
+		var titleName = $routeParams.title;
+		console.log("在前端title")
+		console.log($routeParams.title)
 		$http.get('/api/books/title/'+titleName).success(function(response){
-			$scope.bookT = response;
+			if (response == "未找到相关信息")
+				window.location.href='#/booksClienter/searchErr';
+			else {
+				$scope.bookT = response[0];
+				author = response[0].author;
+				console.log("response")
+				console.log(response[0])
+				console.log("author")//这里找不到
+				console.log(author)//这里找不到
+				console.log("bookT")
+				console.log($scope.bookT)
+			}
 		});
 	}
+
+	//在搜索框里使用，根据搜索框跳转到具体页面，参考view detail按钮，未完成6.5.15.46
+	$scope.getBookByTitleAdmin = function(){
+		// $scope.titleName = "信条"
+		// var titleName = $scope.titleName;//好像angular可以用表单改变值， 菜鸟那里
+		// console.log("在前端title")
+		// console.log($scope.titleName)
+		var titleName = $routeParams.title;
+		console.log("在前端title")
+		console.log($routeParams.title)
+		$http.get('/api/books/title/'+titleName).success(function(response){
+			if (response == "未找到相关信息")
+				window.location.href='#/books/admin/searchErr';
+			else {
+				$scope.bookT = response[0];
+				author = response[0].author;
+				console.log("response")
+				console.log(response[0])
+				console.log("author")//这里找不到
+				console.log(author)//这里找不到
+				console.log("bookT")
+				console.log($scope.bookT)
+			}
+		});
+	}
+
+	// $scope.search = function(){
+	// 	$scope.titleName1 = "信条"
+	// 	titleName1 = $scope.titleName1;//好像angular可以用表单改变值， 菜鸟那里
+	// 	console.log("在前端title")
+	// 	console.log($scope.titleName1)
+	// 	$http.get('/api/books/title/'+titleName1).success(function(response){
+	// 		$scope.bookT = response;
+	// 		window.location.href='#/booksClienter/details/:title';
+	// 	});
+	// }
 
 	$scope.getBookByPublisher = function(){
 		//var publisher = $routeParams.publisher;

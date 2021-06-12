@@ -21,7 +21,7 @@ myApp.config(function($routeProvider){
 		controller:'BooksController',
 		templateUrl: 'views/admin/book_details.html'
 	})
-	.when('/books/details/:title',{
+	.when('/books/details/title/:title',{
 		controller:'BooksController',
 		templateUrl: 'views/admin/book_search.html'
 	})
@@ -32,6 +32,10 @@ myApp.config(function($routeProvider){
 	.when('/books/edit/:id',{
 		controller:'BooksController',
 		templateUrl: 'views/admin/edit_book.html'
+	})
+	.when('/books/searchErr',{
+		controller:'BooksController',
+		templateUrl: 'views/admin/searchErr.html'
 	})
 
 	//客户端
@@ -44,9 +48,13 @@ myApp.config(function($routeProvider){
 		controller:'BooksController',
 		templateUrl: 'views/clienter/book_details.html'
 	})
-	.when('/booksClienter/details/:title',{
+	.when('/booksClienter/details/title/:title',{
 		controller:'BooksController',
 		templateUrl: 'views/clienter/book_search.html'
+	})
+	.when('/booksClienter/searchErr',{
+		controller:'BooksController',
+		templateUrl: 'views/clienter/searchErr.html'
 	})
 
 	//登录端
