@@ -33,10 +33,24 @@ myApp.config(function($routeProvider){
 		controller:'BooksController',
 		templateUrl: 'views/admin/edit_book.html'
 	})
+
+	//客户端
+
 	.when('/booksClienter',{
 		controller:'BooksController',
 		templateUrl: 'views/clienter/books.html'
 	})
+	.when('/booksClienter/details/:id',{
+		controller:'BooksController',
+		templateUrl: 'views/clienter/book_details.html'
+	})
+	.when('/booksClienter/details/:title',{
+		controller:'BooksController',
+		templateUrl: 'views/clienter/book_search.html'
+	})
+
+	//登录端
+
 	.when('/login',{
 		controller:'BooksController',
 		templateUrl: 'views/root.html'
