@@ -34,10 +34,10 @@ myApp.controller('BooksController', ['$scope', '$http', '$location', '$routePara
 			if (response == "未找到相关信息")
 				window.location.href='#/booksClienter/searchErr';
 			else {
-				$scope.bookT = response[0];
-				author = response[0].author;
+				$scope.bookT = response;
+				author = response.author;
 				console.log("response")
-				console.log(response[0])
+				console.log(response)
 				console.log("author")//这里找不到
 				console.log(author)//这里找不到
 				console.log("bookT")
@@ -59,10 +59,10 @@ myApp.controller('BooksController', ['$scope', '$http', '$location', '$routePara
 			if (response == "未找到相关信息")
 				window.location.href='#/books/searchErr';
 			else {
-				$scope.bookT = response[0];
-				author = response[0].author;
+				$scope.bookT = response;
+				author = response.author;
 				console.log("response")
-				console.log(response[0])
+				console.log(response)
 				console.log("author")//这里找不到
 				console.log(author)//这里找不到
 				console.log("bookT")
