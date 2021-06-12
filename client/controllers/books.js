@@ -57,7 +57,7 @@ myApp.controller('BooksController', ['$scope', '$http', '$location', '$routePara
 		console.log($routeParams.title)
 		$http.get('/api/books/title/'+titleName).success(function(response){
 			if (response == "未找到相关信息")
-				window.location.href='#/books/admin/searchErr';
+				window.location.href='#/books/searchErr';
 			else {
 				$scope.bookT = response[0];
 				author = response[0].author;
