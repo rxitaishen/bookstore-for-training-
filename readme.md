@@ -79,6 +79,39 @@ git push -u origin master  //提交到你的仓库
 
 这样一切都好了。
 
+
+
+## 使用bower安装angular和bootstrap以及jquery
+
+[关于bower的使用]:http://chen1218chen.github.io/2016/03/02/node.js/#4-Bower%E5%AE%89%E8%A3%85
+
+bower是一个客户端技术的软件包管理器，它可用于搜索、安装和卸载如JavaScript、HTML、CSS之类的网络资源。**安装依赖（安装前需要这些）：NodeJS、NPM、Git**
+
+![image-20210613101629157](C:\Users\11195\AppData\Roaming\Typora\typora-user-images\image-20210613101629157.png)
+
+```
+bower install <package>
+bower install jquery
+```
+
+如果安装成功，则目录中会出现bower_components子目录，其中包括了下载的jQuery源文件。
+
+[![Alt text](http://chen1218chen.github.io/2016/03/02/node.js/1444461188031.png)](http://chen1218chen.github.io/2016/03/02/node.js/1444461188031.png)
+
+卸载包可以使用uninstall 命令：
+
+```
+bower uninstall jquery
+```
+
+angular、bootstrap安装
+
+```
+bower install angular
+bower install angular-route
+bower install bootstrap
+```
+
 ## 使用MongoDB
 
 ```
@@ -591,7 +624,7 @@ app.controller('myCtrl', function($scope, $http) {
 
 ------
 
-
+js对象合并 用来复杂查询Object.assign(person,color)
 
 # @Express
 
