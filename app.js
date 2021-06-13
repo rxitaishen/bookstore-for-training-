@@ -19,7 +19,7 @@ app.get('/', (req, res) => {
 });
 
 app.get('/api/genres', (req, res ) => {
-	Genre.getGenres((err, genres) => {
+	Genre.getCinemas((err, genres) => {
 		if(err){
 			throw err;
 		}
@@ -27,9 +27,29 @@ app.get('/api/genres', (req, res ) => {
 	});
 });
 
+app.get('/api/genre/name/:name', (req, res ) => {
+	Genre.getCinema(req.params.name, (err, cinema) => {
+		if(err){
+			//console.log(err);
+			throw err;
+		}
+		if(cinema) {
+			console.log('cinema不为null');
+			res.json(cinema);
+		}
+		else{
+			console.log('cinema为null');
+			res.send("影院名称错误")
+		} 
+			
+		
+	});
+});
+
+
 app.post('/api/genres', (req, res) => {
 	var genre = req.body;
-	Genre.addGenre(genre, (err, genre) => {
+	Genre.addCinema(genre, (err, genre) => {
 		if(err){
 			throw err;
 		}
@@ -40,7 +60,7 @@ app.post('/api/genres', (req, res) => {
 app.put('/api/genres/:_id', (req, res) => {
 	var id = req.params._id;
 	var genre = req.body;
-	Genre.updateGenre(id, genre, {}, (err, genre) => {
+	Genre.updateCinema(id, genre, {}, (err, genre) => {
 		if(err){
 			throw err;
 		}
@@ -50,7 +70,7 @@ app.put('/api/genres/:_id', (req, res) => {
 
 app.delete('/api/genres/:_id', (req, res) => {
 	var id = req.params._id;
-	Genre.removeGenre(id, (err, genre) => {
+	Genre.removeCinema(id, (err, genre) => {
 		if(err){
 			throw err;
 		}

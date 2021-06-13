@@ -1,41 +1,55 @@
 const mongoose = require('mongoose');
 
 // Genre Schema
-const genreSchema = mongoose.Schema({
+const cinemaSchema = mongoose.Schema({
 	name:{
 		type: String,
 		required: true
 	},
-	create_date:{
-		type: Date,
-		default: Date.now
+	url:{
+		type: String
+	},
+	englishname:{
+		type: String
+	},
+	start:{
+		type: String
 	}
 });
 
-const Genre = module.exports = mongoose.model('Genre', genreSchema);
+const Cinema = module.exports = mongoose.model('cinema', cinemaSchema);
 
-// Get Genres
-module.exports.getGenres = (callback, limit) => {
-	Genre.find(callback).limit(limit);
+// Get cinemas
+module.exports.getCinemas = (callback, limit) => {
+	Cinema.find(callback).limit(limit);
 }
 
-// Add Genre
-module.exports.addGenre = (genre, callback) => {
-	Genre.create(genre, callback);
+//Get cinema 
+module.exports.getCinema = (name, callback)=>{
+	Cinema.findOne({"name": name},callback);
+	//console.log(title);
 }
 
-// Update Genre
-module.exports.updateGenre = (id, genre, options, callback) => {
+// Add cinema
+module.exports.addCinema = (cinema, callback) => {
+	Cinema.create(cinema, callback);
+}
+
+// Update cinema
+module.exports.updateCinema = (id, cinema, options, callback) => {
 	var query = {_id: id};
 	var update = {
-		name: genre.name
+		name: cinema.name,
+		url: cinema.url,
+		englishname:cinema.englishname,
+		start:cinema.start
 	}
-	Genre.findOneAndUpdate(query, update, options, callback);
+	Cinema.findOneAndUpdate(query, update, options, callback);
 }
 
 
-// Delete Genre
-module.exports.removeGenre = (id, callback) => {
+// Delete cinema
+module.exports.removeCinema = (id, callback) => {
 	var query = {_id: id};
-	Genre.remove(query, callback);
+	Cinema.remove(query, callback);
 }
