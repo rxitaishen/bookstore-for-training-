@@ -39,7 +39,7 @@ app.get('/api/genre/name/:name', (req, res ) => {
 		}
 		else{
 			console.log('cinema为null');
-			res.send("影院名称错误")
+			res.send("名称错误")
 		} 
 			
 		
