@@ -2,6 +2,7 @@ var myApp = angular.module('myApp');
 var publisherName=""
 var wheatherAdmin=""
 var titleName=""
+var bookS
 
 myApp.controller('BooksController', ['$scope', '$http', '$location', '$routeParams', function($scope, $http, $location, $routeParams){
 	console.log('BooksController loaded...');
@@ -118,7 +119,7 @@ myApp.controller('BooksController', ['$scope', '$http', '$location', '$routePara
 			if (response == "未找到相关信息")
 				window.location.href='#/booksClienter/searchErr';
 			else {
-				$scope.bookS = response; //是个数组 等会新建个页面
+				bookS = response; //是个数组 等会新建个页面
 				console.log("找到啦")
 				console.log(response)
 				window.location.href='#/booksClienter/searchResult';
@@ -131,6 +132,10 @@ myApp.controller('BooksController', ['$scope', '$http', '$location', '$routePara
 				// console.log($scope.bookT)
 			}
 		});
+	}
+	
+	$scope.searchBookResult = function(){
+		$scope.bookS=bookS;	
 	}
 
 	$scope.login = function(){
