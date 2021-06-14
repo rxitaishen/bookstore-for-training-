@@ -1,0 +1,31 @@
+<div ng-include="'views/clienter/nav.html'"></div>
+<div class="container">
+	<div class="row">
+		<div class="col-md-12">
+      <a href="#/booksClienter">返回</a>
+      <div class="panel panel-default" ng-init="getCinema()">
+        <div class="panel-heading">
+          <h3 class="panel-title">{{cinema.name}}</h3>
+        </div>
+        <div class="panel-body">
+          <div class="row">
+            <!-- <div class="col-md-4">
+              <img src="{{book.image_url}}">
+            </div> -->
+            <div class="col-md-8">
+              <ul class="list-group">
+                <li class="list-group-item">英文名: {{cinema.englishname}}</li>
+                <li class="list-group-item">始于: {{cinema.start}}</li>
+              </ul>
+              <a target="_blank" href="{{cinema.url}}" class="btn btn-primary">查看详情</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- <div class="pull-right">
+        <a href="#/books/edit/{{book._id}}">Edit</a> |  <a href="#" ng-click="removeBook(book._id)">Delete</a>
+      </div> -->
+    </div>
+  </div>
+</div>

@@ -17,7 +17,7 @@
               <ul class="list-group">
                 <li class="list-group-item">类型: {{bookT.genre}}</li>
                 <li class="list-group-item">导演: {{bookT.author}}</li>
-                <li class="list-group-item">持有版权院线: {{bookT.publisher}}</li>
+                <li class="list-group-item">持有版权院线: <a href='#/booksClienter/genre/{{book.publisher}}'>{{book.publisher}}</a></li>
                 <li class="list-group-item">时长: {{bookT.pages}}</li>
               </ul>
               <a target="_blank" href="{{bookT.buy_url}}" class="btn btn-primary">在豆瓣查看详情</a>

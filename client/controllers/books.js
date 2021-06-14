@@ -138,6 +138,13 @@ myApp.controller('BooksController', ['$scope', '$http', '$location', '$routePara
 		$scope.bookS=bookS;	
 	}
 
+	$scope.getCinema = function(){
+		var name = $routeParams.name;
+		$http.get('/api/genre/name/'+name).success(function(response){
+			$scope.cinema = response;
+		});
+	}
+
 	$scope.login = function(){
 		$http.post('/api/user/',$scope.user).success(function(response){  //response就是res.send
 			publisherName = $scope.user.name;

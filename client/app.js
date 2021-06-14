@@ -66,6 +66,10 @@ myApp.config(function($routeProvider){
 		controller:'BooksController',
 		templateUrl: 'views/clienter/searchResult.html'
 	})
+	.when('/booksClienter/genre/:name',{
+		controller:'BooksController',
+		templateUrl: 'views/clienter/cinema_details.html'
+	})
 	
 
 	//登录端
