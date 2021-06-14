@@ -110,6 +110,29 @@ myApp.controller('BooksController', ['$scope', '$http', '$location', '$routePara
 		});
 	}
 
+	$scope.searchBook = function(){
+		console.log($scope.t);
+		$http.post('/api/books/superSearch', $scope.t).success(function(response){
+			console.log("在找书")
+			console.log($scope.t)
+			if (response == "未找到相关信息")
+				window.location.href='#/booksClienter/searchErr';
+			else {
+				$scope.bookS = response; //是个数组 等会新建个页面
+				console.log("找到啦")
+				console.log(response)
+				window.location.href='#/booksClienter/searchResult';
+				// author = response.author;
+				// console.log("response")
+				// console.log(response)
+				// console.log("author")//这里找不到
+				// console.log(author)//这里找不到
+				// console.log("bookT")
+				// console.log($scope.bookT)
+			}
+		});
+	}
+
 	$scope.login = function(){
 		$http.post('/api/user/',$scope.user).success(function(response){  //response就是res.send
 			publisherName = $scope.user.name;

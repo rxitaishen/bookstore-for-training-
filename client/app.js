@@ -13,6 +13,7 @@ myApp.config(function($routeProvider){
 		controller:'BooksController', //controller:function、string或数组类型，在当前模板上执行的controller函数，生成新的scope。
 		templateUrl: 'views/root.html'
 	})
+	//服务端
 	.when('/books', {
 		controller:'BooksController',
 		templateUrl: 'views/admin/books.html'
@@ -37,6 +38,11 @@ myApp.config(function($routeProvider){
 		controller:'BooksController',
 		templateUrl: 'views/admin/searchErr.html'
 	})
+	//搜索端
+	.when('/books/superSearch',{
+		controller:'BooksController',
+		templateUrl: 'views/clienter/superSearch.html'
+	})
 
 	//客户端
 
@@ -56,6 +62,11 @@ myApp.config(function($routeProvider){
 		controller:'BooksController',
 		templateUrl: 'views/clienter/searchErr.html'
 	})
+	.when('/booksClienter/searchResult',{
+		controller:'BooksController',
+		templateUrl: 'views/clienter/searchResult.html'
+	})
+	
 
 	//登录端
 

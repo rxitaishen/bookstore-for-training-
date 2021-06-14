@@ -224,24 +224,25 @@ app.post('/api/books', (req, res) => {
 //高级搜索
 app.post('/api/books/superSearch', (req, res) => {
 	var t = req.body;
-	// console.log(t.genre);
-	// console.log(t.author);
-	// console.log(t.duibi);
-	// console.log(t.pages);
+	console.log("在后端高级搜索")
+	// console.log(typeof t.genre);
+	// console.log(typeof t.genre);
+	// console.log(typeof t.duibi);
+	// console.log(typeof t.pages);
 	genre=t.genre;
 	author=t.author;
 	duibi=t.duibi;
 	pages=t.pages;
 	var gjss = {}
-	if(genre.length!=0){
+	if(typeof(genre) != "undefined"){
 		g = {"genre":genre}
 		Object.assign(gjss,g);
 	}
-	if(author.length!=0){
+	if(typeof(author) != "undefined"){
 		a = {"author":author}
 		Object.assign(gjss,a);
 	}
-	if(pages.length!=0){
+	if(typeof(pages) != "undefined"){
 		if(duibi == "more")
 			p = {"pages":{$gt:pages}}
 		else if (duibi == "less")
