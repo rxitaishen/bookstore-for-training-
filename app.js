@@ -213,12 +213,84 @@ app.get('/api/books/:_id', (req, res,next) => {
 
 app.post('/api/books', (req, res) => {
 	var book = req.body;
+	//console.log(book.img_url)
 	Book.addBook(book, (err, book) => {
 		if(err){
 			throw err;
 		}
 		res.json(book);
 	});
+});
+//高级搜索
+app.post('/api/books/superSearch', (req, res) => {
+	var t = req.body;
+	// console.log(t.genre);
+	// console.log(t.author);
+	// console.log(t.duibi);
+	// console.log(t.pages);
+	genre=t.genre;
+	author=t.author;
+	duibi=t.duibi;
+	pages=t.pages;
+	var gjss = {}
+	if(genre.length!=0){
+		g = {"genre":genre}
+		Object.assign(gjss,g);
+	}
+	if(author.length!=0){
+		a = {"author":author}
+		Object.assign(gjss,a);
+	}
+	if(pages.length!=0){
+		if(duibi == "more")
+			p = {"pages":{$gt:pages}}
+		else if (duibi == "less")
+			p = {"pages":{$lt:pages}}
+		else if (duibi == "equal")
+			p = {"pages":pages}
+		Object.assign(gjss,p);
+	}
+	console.log("高级搜索");
+	console.log(gjss);
+	if(gjss.length!=0){
+		Book.find(gjss,(err,bookS) => {
+			if(err){
+				throw err;
+			}
+			if(bookS.length!=0) { //findone 和find 返回值有区别，当找不到时 find返回空数组,是个数组，findone返回null
+				console.log('search_book不为null');
+				console.log(bookS)
+				res.json(bookS);
+			}
+			else{
+				console.log('search_book为null');
+				res.send("未找到相关信息")
+			} 
+		})
+	}
+	else {
+		Book.find((err,bookS) => {
+			if(err){
+				throw err;
+			}
+			if(bookS) { //findone 和find 返回值有区别，当找不到时 find返回空数组,是个数组，findone返回null
+				console.log('search_book不为null');
+				console.log(bookS)
+				res.json(bookS);
+			}
+			else{
+				console.log('search_book为null');
+				res.send("未找到相关信息")
+			} 
+		})
+	}
+	
+	// Book.find(t, (err, book) => {
+	// 	if(err){
+	// 		throw err;
+	// 	}
+	// 	res.json(book);
+	// });
 });
 
 app.put('/api/books/:_id', (req, res) => {
