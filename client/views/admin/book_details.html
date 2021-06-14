@@ -2,7 +2,7 @@
 <div class="container">
 	<div class="row">
 		<div class="col-md-12">
-      <a href="#/books">Go Back</a>
+      <a href="#/books">返回</a>
       <div class="panel panel-default" ng-init="getBook()">
         <div class="panel-heading">
           <h3 class="panel-title">{{book.title}}</h3>
@@ -15,19 +15,19 @@
             <div class="col-md-8">
               </p>{{book.description}}</p>
               <ul class="list-group">
-                <li class="list-group-item">Genre: {{book.genre}}</li>
-                <li class="list-group-item">Author: {{book.author}}</li>
-                <li class="list-group-item">Publisher: {{book.publisher}}</li>
-                <li class="list-group-item">Pages: {{book.pages}}</li>
+                <li class="list-group-item">类型: {{book.genre}}</li>
+                <li class="list-group-item">导演: {{book.author}}</li>
+                <li class="list-group-item">持有版权院线: {{book.publisher}}</li>
+                <li class="list-group-item">时长: {{book.pages}}</li>
               </ul>
-              <a target="_blank" href="{{book.buy_url}}" class="btn btn-primary">Buy on Amazon</a>
+              <a target="_blank" href="{{book.buy_url}}" class="btn btn-primary">在豆瓣查看详情</a>
             </div>
           </div>
         </div>
       </div>
 
       <div class="pull-right">
-        <a href="#/books/edit/{{book._id}}">Edit</a> |  <a href="#" ng-click="removeBook(book._id)">Delete</a>
+        <a href="#/books/edit/{{book._id}}">编辑</a> |  <a href="#" ng-click="removeBook(book._id)">删除</a>
       </div>
     </div>
   </div>

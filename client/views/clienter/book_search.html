@@ -2,7 +2,7 @@
 <div class="container">
 	<div class="row">
 		<div class="col-md-12">
-      <a href="#/booksClienter">Go Back</a>
+      <a href="#/booksClienter">返回</a>
       <div class="panel panel-default" ng-init="getBookByTitle()">
         <div class="panel-heading">
           <h3 class="panel-title">{{bookT.title}}</h3>
@@ -15,12 +15,12 @@
             <div class="col-md-8">
               </p>{{bookT.description}}</p>
               <ul class="list-group">
-                <li class="list-group-item">Genre: {{bookT.genre}}</li>
-                <li class="list-group-item">Author: {{bookT.author}}</li>
-                <li class="list-group-item">Publisher: {{bookT.publisher}}</li>
-                <li class="list-group-item">Pages: {{bookT.pages}}</li>
+                <li class="list-group-item">类型: {{bookT.genre}}</li>
+                <li class="list-group-item">导演: {{bookT.author}}</li>
+                <li class="list-group-item">持有版权院线: {{bookT.publisher}}</li>
+                <li class="list-group-item">时长: {{bookT.pages}}</li>
               </ul>
-              <a target="_blank" href="{{bookT.buy_url}}" class="btn btn-primary">查看更多信息</a>
+              <a target="_blank" href="{{bookT.buy_url}}" class="btn btn-primary">在豆瓣查看详情</a>
             </div>
           </div>
         </div>
