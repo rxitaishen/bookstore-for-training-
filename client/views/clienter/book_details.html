@@ -18,9 +18,20 @@
                 <li class="list-group-item">类型: {{book.genre}}</li>
                 <li class="list-group-item">导演: {{book.author}}</li>
                 <li class="list-group-item">持有版权院线: <a href='#/booksClienter/genre/{{book.publisher}}'>{{book.publisher}}</a></li>
+                <li class="list-group-item">放映厅：01</li>
                 <li class="list-group-item">时长: {{book.pages}}</li>
               </ul>
               <a target="_blank" href="{{book.buy_url}}" class="btn btn-primary">在豆瓣查看详情</a>
+            </div>
+            
+          </div>
+          
+          <div class="col-md-12">
+          </p>
+            <textarea class="form-control" placeholder="评论"></textarea>
+          </p>
+            <div >
+              <a class="btn btn-primary" href="javascript:location.reload();">发表评论</a>
             </div>
           </div>
         </div>
