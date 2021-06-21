@@ -1,18 +1,20 @@
 var myApp = angular.module('myApp');
-var publisherName=""
-var wheatherAdmin=""
-var titleName=""
-var bookS
+var publisherName="" 			//定义全局publisherName，用于从book中获取publisher并传递到搜索端
+var wheatherAdmin="" 			//定义全局wheatherAdmin，用于在登录检验时获取是否为管理员身份以判断之后呈现的应该是管理员端还是普通用户端
+var titleName="" 				//定义全局titleName，用于从搜索框中获取title并传递到后端进行按名称搜索
+var bookS						//用于从返回搜索结果
 
 myApp.controller('BooksController', ['$scope', '$http', '$location', '$routeParams', function($scope, $http, $location, $routeParams){
-	console.log('BooksController loaded...');
+	//console.log('BooksController 加载中...');
 
+	//获取所有电影
 	$scope.getBooks = function(){
 		$http.get('/api/books').success(function(response){
 			$scope.books = response;
 		});
 	}
 
+	//获取指定id的电影
 	$scope.getBook = function(){
 		var id = $routeParams.id;
 		$http.get('/api/books/'+id).success(function(response){
@@ -22,7 +24,7 @@ myApp.controller('BooksController', ['$scope', '$http', '$location', '$routePara
 		});
 	}
 
-	//在搜索框里使用，根据搜索框跳转到具体页面，参考view detail按钮，未完成6.5.15.46
+	//在普通用户端的搜索框里使用，根据搜索框跳转到具体页面
 	$scope.getBookByTitle = function(){
 		// $scope.titleName = "信条"
 		// var titleName = $scope.titleName;//好像angular可以用表单改变值， 菜鸟那里
@@ -47,7 +49,7 @@ myApp.controller('BooksController', ['$scope', '$http', '$location', '$routePara
 		});
 	}
 
-	//在搜索框里使用，根据搜索框跳转到具体页面，参考view detail按钮，未完成6.5.15.46
+	//在管理员端的搜索框里使用，根据搜索框跳转到具体页面
 	$scope.getBookByTitleAdmin = function(){
 		// $scope.titleName = "信条"
 		// var titleName = $scope.titleName;//好像angular可以用表单改变值， 菜鸟那里
@@ -62,35 +64,25 @@ myApp.controller('BooksController', ['$scope', '$http', '$location', '$routePara
 			else {
 				$scope.bookT = response;
 				author = response.author;
-				console.log("response")
-				console.log(response)
-				console.log("author")//这里找不到
-				console.log(author)//这里找不到
-				console.log("bookT")
-				console.log($scope.bookT)
+				// console.log("response")
+				// console.log(response)
+				// console.log("author")//这里找不到
+				// console.log(author)//这里找不到
+				// console.log("bookT")
+				// console.log($scope.bookT)
 			}
 		});
 	}
 
-	// $scope.search = function(){
-	// 	$scope.titleName1 = "信条"
-	// 	titleName1 = $scope.titleName1;//好像angular可以用表单改变值， 菜鸟那里
-	// 	console.log("在前端title")
-	// 	console.log($scope.titleName1)
-	// 	$http.get('/api/books/title/'+titleName1).success(function(response){
-	// 		$scope.bookT = response;
-	// 		window.location.href='#/booksClienter/details/:title';
-	// 	});
-	// }
-
+	//按院线版权方搜索所有隶属于该影院的影片（用于管理员登录时返回该管理员旗下所有的影片）
 	$scope.getBookByPublisher = function(){
 		//var publisher = $routeParams.publisher;
-		
 		$http.get('/api/books/publisher/'+publisherName).success(function(response){
 			$scope.bookP = response;
 		});
 	}
 
+	//管理员权限：添加电影
 	$scope.addBook = function(){
 		console.log($scope.book);
 		$http.post('/api/books/', $scope.book).success(function(response){
@@ -98,6 +90,7 @@ myApp.controller('BooksController', ['$scope', '$http', '$location', '$routePara
 		});
 	}
 
+	//管理员权限：更改电影
 	$scope.updateBook = function(){
 		var id = $routeParams.id;
 		$http.put('/api/books/'+id, $scope.book).success(function(response){
@@ -105,16 +98,18 @@ myApp.controller('BooksController', ['$scope', '$http', '$location', '$routePara
 		});
 	}
 
+	//管理员权限：删除电影
 	$scope.removeBook = function(id){
 		$http.delete('/api/books/'+id).success(function(response){
 			window.location.href='#/books';
 		});
 	}
 
+	//按名称搜索电影名
 	$scope.searchBook = function(){
 		console.log($scope.t);
 		$http.post('/api/books/superSearch', $scope.t).success(function(response){
-			console.log("在找书")
+			//console.log("在找书")
 			console.log($scope.t)
 			if (response == "未找到相关信息")
 				window.location.href='#/booksClienter/searchErr';
@@ -134,10 +129,12 @@ myApp.controller('BooksController', ['$scope', '$http', '$location', '$routePara
 		});
 	}
 	
+	//返回找到的电影
 	$scope.searchBookResult = function(){
 		$scope.bookS=bookS;	
 	}
 
+	//获取影院信息
 	$scope.getCinema = function(){
 		var name = $routeParams.name;
 		$http.get('/api/genre/name/'+name).success(function(response){
@@ -145,6 +142,7 @@ myApp.controller('BooksController', ['$scope', '$http', '$location', '$routePara
 		});
 	}
 
+	//登录
 	$scope.login = function(){
 		$http.post('/api/user/',$scope.user).success(function(response){  //response就是res.send
 			publisherName = $scope.user.name;
@@ -162,6 +160,7 @@ myApp.controller('BooksController', ['$scope', '$http', '$location', '$routePara
 		})
 	}
 
+	//注册
 	$scope.register = function(){
 		$http.post('/api/users/',$scope.user).success(function(response){ //$scope.user是post得到的body
 			window.location.href='#/login';

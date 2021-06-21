@@ -8,16 +8,18 @@ var myApp = angular.module('myApp',['ngRoute']);
 //第二个参数是路由配置对象。
 
 myApp.config(function($routeProvider){
-	console.log('在执行前端app哦')
+	//console.log('正在执行client的app.js')
 	$routeProvider.when('/', {        //这边是创建路由,homepage,因为一开始就是/作为根目录了
 		controller:'BooksController', //controller:function、string或数组类型，在当前模板上执行的controller函数，生成新的scope。
 		templateUrl: 'views/root.html'
 	})
-	//服务端
+
+	//================管理员端=================//
 	.when('/books', {
 		controller:'BooksController',
 		templateUrl: 'views/admin/books.html'
 	})
+	//
 	.when('/books/details/:id',{
 		controller:'BooksController',
 		templateUrl: 'views/admin/book_details.html'
@@ -38,14 +40,14 @@ myApp.config(function($routeProvider){
 		controller:'BooksController',
 		templateUrl: 'views/admin/searchErr.html'
 	})
-	//搜索端
+
+	//================搜索端=================//
 	.when('/books/superSearch',{
 		controller:'BooksController',
 		templateUrl: 'views/clienter/superSearch.html'
 	})
 
-	//客户端
-
+	//================普通用户端=================//
 	.when('/booksClienter',{
 		controller:'BooksController',
 		templateUrl: 'views/clienter/books.html'
@@ -72,8 +74,7 @@ myApp.config(function($routeProvider){
 	})
 	
 
-	//登录端
-
+	//================登录端=================//
 	.when('/login',{
 		controller:'BooksController',
 		templateUrl: 'views/root.html'

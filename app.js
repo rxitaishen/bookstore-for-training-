@@ -1,3 +1,6 @@
+
+//================引入包==================//
+
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
@@ -6,18 +9,24 @@ const mongoose = require('mongoose');
 app.use(express.static(__dirname+'/client'));
 app.use(bodyParser.json());
 
+//引入自定义模块
 Genre =require('./models/genre');
 Book =require('./models/book');
 User =require('./models/user')
 
-// Connect to Mongoose
+//===============链接到mongodb==================//
+
 mongoose.connect('mongodb://localhost/bookstore');
 var db = mongoose.connection;
 
+//===============配置后端路由==================//
+
+//访问根目录
 app.get('/', (req, res) => {
 	res.send('Please use /api/books or /api/genres');
 });
 
+//查询所有影院数据
 app.get('/api/genres', (req, res ) => {
 	Genre.getCinemas((err, genres) => {
 		if(err){
@@ -27,6 +36,7 @@ app.get('/api/genres', (req, res ) => {
 	});
 });
 
+//按影院名称查询影院数据
 app.get('/api/genre/name/:name', (req, res ) => {
 	Genre.getCinema(req.params.name, (err, cinema) => {
 		if(err){
@@ -41,12 +51,10 @@ app.get('/api/genre/name/:name', (req, res ) => {
 			console.log('cinema为null');
 			res.send("名称错误")
 		} 
-			
-		
 	});
 });
 
-
+//新增影院信息
 app.post('/api/genres', (req, res) => {
 	var genre = req.body;
 	Genre.addCinema(genre, (err, genre) => {
@@ -57,6 +65,7 @@ app.post('/api/genres', (req, res) => {
 	});
 });
 
+//更改影院信息-----前端未实现
 app.put('/api/genres/:_id', (req, res) => {
 	var id = req.params._id;
 	var genre = req.body;
@@ -68,6 +77,7 @@ app.put('/api/genres/:_id', (req, res) => {
 	});
 });
 
+//删除影院信息-----前端未实现
 app.delete('/api/genres/:_id', (req, res) => {
 	var id = req.params._id;
 	Genre.removeCinema(id, (err, genre) => {
@@ -78,8 +88,8 @@ app.delete('/api/genres/:_id', (req, res) => {
 	});
 });
 
-//这里开始写user的路由
-//获取user列表
+//关于user的路由
+//查询所有user数据
 app.get('/api/users', (req, res ) => {
 	User.getUsers((err, users) => {
 		if(err){
@@ -118,10 +128,6 @@ app.post('/api/user', (req, res) => {
 	});
 });
 
-
-
-
-
 /*app.delete('/api/genres/:_id', (req, res) => {
 	var id = req.params._id;
 	Genre.removeGenre(id, (err, genre) => {
@@ -132,17 +138,9 @@ app.post('/api/user', (req, res) => {
 	});
 });*/
 
-//应该在这里改变获取books的函数，先在model里改变getbooks的函数，让他变成像找title一样找到匹配的author
-//前后端的交流都会通过controller作为桥梁，前端从scope里获取对象，后端响应ctrl里的http请求对数据库进行操作获取值传回ctrl里，由scope捕获，并赋值给被scope声明的对象
-//主要问题是要明白表单的提交
-//现在还有个问题是管理员权限怎么判断,目前想法是不能添加电影,但怎么判断呢，是不是还要从芒果里获取admin值，在ctrl的scope或者前端的{{}}判断值
-//好像初始页是肯定要改的，那这样的话,ng—view那里又要改了，是不是要切换不同的angularmodule还是切换ctrl？
-//不如这样，初始页就定死是登录界面，然后，可视这样之前不是出了问题吗，那之前出的问题是不是能在前端的app里改掉根目录的那个路由就能解决？、
-//还是有很多问题啊，这个好了之后一定要先写笔记，查的话，不是在登录那里实现了吗，
-//就这样决定了，先解决登录页面，之后再去看看要不要做查的
-
+//获取所有电影的信息-----原本是想做书店的，但另一个大作业需要就改了数据。
 app.get('/api/books', (req, res ) => {
-	console.log('在执行后端app哦')
+	//console.log('正在执行后端代码')
 	Book.getBooks((err, books) => {
 		if(err){
 			throw err;
@@ -151,8 +149,8 @@ app.get('/api/books', (req, res ) => {
 	});
 });
 
-
-//貌似一直在执行这个,走不下去
+//按电影版权所有者查询电影
+//貌似一直在执行这个,走不下去----只要改一下路由不要跟下面的按id查询的路由重起来就好
 app.get('/api/books/publisher/:publisher', (req, res, next) => {
 	console.log('在走publisher')
 	Book.getBookByPb(req.params.publisher, (err, bookP) => {
@@ -173,6 +171,7 @@ app.get('/api/books/publisher/:publisher', (req, res, next) => {
 	
 });
 
+//按电影名查询电影
 app.get('/api/books/title/:title', (req, res, next) => {
 	console.log('在走title')
 	Book.getBookByTitle(req.params.title, (err, bookT) => {
@@ -194,6 +193,7 @@ app.get('/api/books/title/:title', (req, res, next) => {
 	
 });
 
+//按id名查询电影
 app.get('/api/books/:_id', (req, res,next) => {
 	console.log('在走id')
 	Book.getBookById(req.params._id, (err, book) => {
@@ -211,6 +211,7 @@ app.get('/api/books/:_id', (req, res,next) => {
 	});
 });
 
+//添加电影
 app.post('/api/books', (req, res) => {
 	var book = req.body;
 	//console.log(book.img_url)
@@ -221,6 +222,7 @@ app.post('/api/books', (req, res) => {
 		res.json(book);
 	});
 });
+
 //高级搜索
 app.post('/api/books/superSearch', (req, res) => {
 	var t = req.body;
@@ -285,15 +287,9 @@ app.post('/api/books/superSearch', (req, res) => {
 			} 
 		})
 	}
-	
-	// Book.find(t, (err, book) => {
-	// 	if(err){
-	// 		throw err;
-	// 	}
-	// 	res.json(book);
-	// });
 });
 
+//更新电影信息
 app.put('/api/books/:_id', (req, res) => {
 	var id = req.params._id;
 	var book = req.body;
@@ -305,6 +301,7 @@ app.put('/api/books/:_id', (req, res) => {
 	});
 });
 
+//删除电影
 app.delete('/api/books/:_id', (req, res) => {
 	var id = req.params._id;
 	Book.removeBook(id, (err, book, next) => {
